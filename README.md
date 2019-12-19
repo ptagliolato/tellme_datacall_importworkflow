@@ -1,2 +1,3 @@
-# tellme_datacall_importworkflow
-docker image and scripts to manage tellme data call
+## Build docker image
+    docker build -t ptagliolato/tellme_datacall_preprocessing:<tag> .
+
