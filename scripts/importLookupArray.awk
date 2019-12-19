@@ -3,7 +3,7 @@
 # use within the folder containing city folders, decodificheConcetti.tsv, decodificheCities.tsv.
 # The script is designed to be called this way:
 #
-# tree -if --noreport | grep shp | awk -f importLookupArray.awk
+# tree -if --noreport | grep shp | awk -v FQDN="tellmehub.get-it.it" -v user="geoserveruser" -v pass="geoserverpassword" -v container_absolute_path_prefix="/usr/src/app/tellme_datacall/" -f importLookupArray.awk
 #
 # the script outputs the command lines to invoke geonode importlayers script 
 # 
@@ -20,6 +20,11 @@
 #
 #
 BEGIN{
+  getit_FQDN=FQDN; #ex."tellmehub.get-it.it"
+  geoserver_username=user;
+  geoserver_password=pass;
+  pathprefix=container_absolute_path_prefix;
+
   while(getline < "decodificheConcetti.tsv"){
     split($0,ft,"\t")
     conceptname=ft[1];
@@ -40,9 +45,19 @@ BEGIN{
   close("decodificheCities.tsv");
   FS="/";
 }
+/ /{
+  warning=sprintf("# --- WARNING: file %s \n#      filename contains spaces, please use clean_filename.awk script to correct the issue: ", $0)
+  print warning;
+  print "# tree -if --noreport | grep \" \" | awk -f clean_filenames"
+  next;
+}
 {
+  relative_path_and_filename=$0;
+  container_absolute_path_and_filename=sprintf("%s%s",container_absolute_path_prefix,relative_path_and_filename)
+  sub(/\.\//,"",container_absolute_path_and_filename);
+
   city=$2;
-  user=city; # NOTE: currently each city team has a user whose id is the city name capitalized (written exactly as the first column of "decodificheCities.tsv" file)
+  user=city; #NOTE: currently each city team has a user whose id is the city name capitalized (written exactly as the first column of "decodificheCities.tsv" file)
   protocol=$3;
   keyword=$4;
   relatedConcept=$5;
@@ -59,35 +74,41 @@ BEGIN{
   region=city2region[city];
   conceptid=conceptslug2conceptid[conceptslug];
   
+  # if lookup do not succeed, it is not an accepted city or concept: skip the record
+  if(cityabbrev=="" || currentconceptname==""){
+    print "# WARNING: lookup issue for the record " $0 " - I skip it"; 
+    print "# it is not an accepted city or concept";
+    next;
+  }
+
 
   row=sprintf("city: %s\tprotocol: %s\tconcept: %s\tslug: %s", city, protocol, relatedConcept, conceptslug);
   print row > "importOutputLog.txt";
   split($6,filename,".");
   layertitle=filename[1];
-  sub(/\\ /,"_",layertitle);
+  gsub(/\\ /,"_",layertitle);
   if(index(layertitle,cityprefix)==0){
     layertitle=sprintf("%s%s", cityprefix, layertitle)
   }
 
-  output=sprintf("docker-compose exec django python manage.py importlayers --keywords=%s --user=%s --title=%s --regions=%s --charset=UTF-8 %s", currentconceptname, user, layertitle, region, $0);
+
+  output=sprintf("docker-compose exec django python manage.py importlayers --keywords=%s --user=%s --title=%s --regions=%s --charset=UTF-8 %s", currentconceptname, user, layertitle, region, container_absolute_path_and_filename);
   print output;
 
-  postproduction=sprintf("add here commands to associate styles to the layer. Layer: %s\tConcept_id:%s\tProtocol (i.e. protocol and scale, to be looked up): %s", layertitle, conceptslug, protocol);
-  print postproduction > "importOutputLog.txt";
+  postproduction=sprintf("# add here commands to associate styles to the layer. Layer: %s\tConcept_id:%s\tProtocol (i.e. protocol and scale, to be looked up): %s", layertitle, conceptslug, protocol);
+  print postproduction > "output_importLog.txt";
 
-  geoserver_username="admin";
-  geoserver_password="geoserver";
-  stylename=sprintf("p_%s-c_%s-s_%s",protocolid,conceptid,scale);
+  stylename=sprintf("c_%s-p_%s-s_%s",conceptid,protocolid,scale);
   geoserver_layername=sprintf("geonode:%s",layertitle);
-  getit_FQDN="tellmehub.get-it.it";
   geoserverAPI_CURL_command=sprintf("curl -v -u %s:%s -X PUT -H \"Content-type: text/xml\" -d \"<layer><defaultStyle><name>%s</name> </defaultStyle><enabled>true</enabled></layer>\" http://%s/geoserver/rest/layers/%s", geoserver_username, geoserver_password, stylename, getit_FQDN, geoserver_layername);
 
-  print geoserverAPI_CURL_command > "postproduction_curl_statement.txt";
+  print geoserverAPI_CURL_command > "output_postproduction_curl_statement.txt";
 
 }
 
 END{
   
-  close("postproduction_curl_statement.txt")
-  close("importOutputLog.txt")
+  close("output_postproduction_curl_statement.txt")
+  close("output_importLog.txt")
 }
+
