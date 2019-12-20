@@ -1,6 +1,6 @@
 # ------- INSTRUCTIONS:
 #
-# use within the folder containing city folders, decodificheConcetti.tsv, decodificheCities.tsv.
+# use within the folder containing city folders, relatedConceptLookupTable.tsv, metropolisLookupTable.tsv.
 # The script is designed to be called this way:
 #
 # tree -if --noreport | grep shp | awk -v FQDN="tellmehub.get-it.it" -v user="geoserveruser" -v pass="geoserverpassword" -v container_absolute_path_prefix="/usr/src/app/tellme_datacall/" -f importLookupArray.awk
@@ -25,7 +25,7 @@ BEGIN{
   geoserver_password=pass;
   pathprefix=container_absolute_path_prefix;
 
-  while(getline < "decodificheConcetti.tsv"){
+  while(getline < "relatedConceptLookupTable.tsv"){
     split($0,ft,"\t")
     conceptname=ft[1];
     conceptslug=sprintf("concept_%d",ft[2]);
@@ -34,15 +34,15 @@ BEGIN{
     conceptslug2currentname[conceptslug]=currentname;
     conceptslug2conceptid[conceptslug]=ft[2];
   }
-  close("decodificheConcetti.tsv");
-  while(getline < "decodificheCities.tsv"){
+  close("relatedConceptLookupTable.tsv");
+  while(getline < "metropolisLookupTable.tsv"){
     split($0,ft,"\t");
     cityname=ft[1];
     cityabbrev=ft[2];
     city2cityabbrev[cityname]=cityabbrev;    
     city2region[cityname]=ft[3];
   }
-  close("decodificheCities.tsv");
+  close("metropolisLookupTable.tsv");
   FS="/";
 }
 / /{
@@ -57,7 +57,7 @@ BEGIN{
   sub(/\.\//,"",container_absolute_path_and_filename);
 
   city=$2;
-  user=city; #NOTE: currently each city team has a user whose id is the city name capitalized (written exactly as the first column of "decodificheCities.tsv" file)
+  user=city; #NOTE: currently each city team has a user whose id is the city name capitalized (written exactly as the first column of "metropolisLookupTable.tsv" file)
   protocol=$3;
   keyword=$4;
   relatedConcept=$5;
