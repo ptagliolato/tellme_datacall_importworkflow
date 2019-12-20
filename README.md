@@ -44,18 +44,18 @@ Where:
 - \<TELLme-KEYWORD-A\> is the capitalized label of one of the TELLme keywords. E.g. "GREEN_INFRASTRUCTURE"
 - \<RELATED-CONCEPT-X\> is the capitalized label of one of the TELLme related concepts to the preceding keyword. E.g. "AGRICOLTURAL_TYPE"
 
+The scripts need for their execution two files containing lookup tables to match folder names with related concepts and with metropolis.
+The two files (\*lookupTable.tsv) contain this information.
+- The metropolis is a three columns table for: folder-name, metropolis-abbreviation, geographical region of the metropolis.
+- The related concept table contains three columns: folder-name, concept numeric id, concept label (the label is the one within the TELLme-HUB, and please note that it could be not synchronized at any moment with the metropolitan glossary).
+
 ## Operations of the workflow
-Read a folder structure containing layer files in shp format.
-
-Preprocess file names in order to correct OS issues (spaces, accented characters).
-
-Compose a report, via ogrinfo, containing information about actual geometry type of each shapefile.
-
-Compose statements for importing layers within the TELLme-Hub GET-IT instance.
-
-Compose post-import statements invoking, via curl program, geoserver API in order to associate each layer with the appropriate style for TELLme cartography.
-
-The scripts must be copied to the data folder-structure root and executed within it.
+- Read a folder structure containing layer files in shp format.
+- Preprocess file names in order to correct OS issues (spaces, accented characters).
+- Compose a report, via ogrinfo, containing information about actual geometry type of each shapefile.
+- Compose statements for importing layers within the TELLme-Hub GET-IT instance.
+- Compose post-import statements invoking, via curl program, geoserver API in order to associate each layer with the appropriate style for TELLme cartography.
+- The scripts must be copied to the data folder-structure root and executed within it.
 
 ## Docker image and docker-compose
 The docker image contains an environment to successfully run the scripts. It contains gdal-ogr and the tree utility that are prerequisite.
