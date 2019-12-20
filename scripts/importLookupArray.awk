@@ -27,10 +27,13 @@ BEGIN{
 
   while(getline < "relatedConceptLookupTable.tsv"){
     split($0,ft,"\t")
-    conceptname=ft[1];
-    conceptslug=sprintf("concept_%d",ft[2]);
-    currentname=ft[3];#bisogna aggiungere colonna con valori attuali della HK corrispondente a concept_X;
-    label2conceptslug[conceptname]=conceptslug;
+    conceptname=ft[1]; #the concept name used in the folder structure of the data call.
+    conceptslug=sprintf("concept_%d",ft[2]); #the concept slug is of the form concept_nn where nn is the numeric ID of the concept.
+#current concept label within TELLme-Hub (each RC is imported as a geonode HierarchicalKeyword with a static slug, but labels may vary according to further upgrades of the TELLme Glossary: the HK representation of the Glossary within TELLme-Hub may not be synchronized with it at the moment of importing data.
+    currentname=ft[3]; # current concept label in TELLme-Hub (see previous line comment)
+
+    # dictionaries used later to convert folder-names to slugs, current TELLme-Hub labels, concept numeric id
+    label2conceptslug[conceptname]=conceptslug; 
     conceptslug2currentname[conceptslug]=currentname;
     conceptslug2conceptid[conceptslug]=ft[2];
   }
