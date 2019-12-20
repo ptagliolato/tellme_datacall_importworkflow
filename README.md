@@ -1,3 +1,10 @@
+<!---[![DOI](https://zenodo.org/badge/187632170.svg)](https://zenodo.org/badge/latestdoi/187632170)--->
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+
+TELLme Datacall Import Workflow
+===============================
+
 ## Description 
 The discipline defined by the TELLme project identifies urban thematics of interest at the metropolitan level.     
 For each thematics, the TELLme metropolitan discipline methodologically defines sets of keywords and related concepts (RC). These keywords and RC are collected by the involved partners and community of experts through the project software devoted to the composition of the TELLme-Glossary (http://www.tellme.polimi.it/tellme_apps/tellme/login) and are made publicly available as Linked Data (http://rdfdata.get-it.it/TELLmeGlossary).  
@@ -80,3 +87,22 @@ this can be achieved using the docker-compose, by specifying the path in the doc
 
 ## Build docker image
     docker build -t ptagliolato/tellme_datacall_importworkflow:<tag> .
+    
+## Meta
+
+* Please [provide a new manufacturer information by issues](https://github.com/ptagliolato/tellme_datacall_importworkflow/issues), or email tagliolato.p(at)irea.cnr.it
+* License: The collection is being developed by Paolo Tagliolato ([IREA-CNR](http://www.irea.cnr.it)), and it is released under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html) (GPL‑3).
+<!---* Get citation information for RDF-FOAF Manufacturers list
+
+``` bibtex
+@misc{alessandro_oggioni_2019_3247546,
+  author       = {Alessandro Oggioni},
+  title        = {{oggioniale/RDF-FOAF-Manufacturer-list: First 
+                   release of RDF-FOAF Manufacturers list}},
+  month        = jun,
+  year         = 2019,
+  doi          = {10.5281/zenodo.3247546},
+  url          = {https://doi.org/10.5281/zenodo.3247546}
+}
+```
+--->
