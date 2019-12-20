@@ -1,6 +1,6 @@
 <!---[![DOI](https://zenodo.org/badge/187632170.svg)](https://zenodo.org/badge/latestdoi/187632170)--->
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+<!---[![Docker: ](https://badgen.net/badge/icon/docker?icon=docker&label)](https://hub.docker.com/)--->
 
 TELLme Datacall Import Workflow
 ===============================
