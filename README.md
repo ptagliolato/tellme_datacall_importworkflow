@@ -59,6 +59,7 @@ The two files (\*lookupTable.tsv) contain this information.
 
 # Usage
 Once the scripts have been copied into the data-folder structure, in the ROOT folder
+
 	> cd ROOT-FOLDER
 	> # clean file names: run 
 	> ./clean_file_names.sh
@@ -66,6 +67,7 @@ Once the scripts have been copied into the data-folder structure, in the ROOT fo
 	> ./inspect_shape_geometry.sh
 	> # obtain import statements to ingest files in TELLme-HUB: run 
 	> tree -if --noreport | grep shp | awk -v FQDN="tellmehub.get-it.it" -v user="<geoserveruser>" -v pass="<geoserverpassword>" -v container_absolute_path_prefix="/usr/src/app/tellme_datacall/" -f importLookupArray.awk
+	
 The parameter to the awk script have the following meaning, and should be adapted to environment.
 - 'FQDN' must contain the web domain of the installation of TELLme-HUB instance where data are going to published
 - 'user' and 'pass' represent the actual administrative account of the geoserver associated to the TELLme-HUB instance
