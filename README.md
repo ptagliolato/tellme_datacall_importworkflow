@@ -47,10 +47,10 @@ The scripts can be used with a data folder-structure of the following kind:
 	    ├── ...
 	    
 Where:
-		- <CITY-1> is the name of the city the layer are provided for. E.g. "MILAN" or "GUADALAJARA"
-		- <TELLme-PROTOCOL-1>_<TELLme-SCALE> is the composition of the name of the TELLme protocol map name with the scale. E.g. "GREEN_GREY_INFRASTRUCTURE_L"
-		- <TELLme-KEYWORD-A> is the capitalized label of one of the TELLme keywords. E.g. "GREEN_INFRASTRUCTURE"
-		- <RELATED-CONCEPT-X> is the capitalized label of one of the TELLme related concepts to the preceding keyword. E.g. "AGRICOLTURAL_TYPE"
+- \<CITY-1\> is the name of the city the layer are provided for. E.g. "MILAN" or "GUADALAJARA"
+- \<TELLme-PROTOCOL-1\>_\<TELLme-SCALE\> is the composition of the name of the TELLme protocol map name with the scale. E.g. "GREEN_GREY_INFRASTRUCTURE_L"
+- \<TELLme-KEYWORD-A\> is the capitalized label of one of the TELLme keywords. E.g. "GREEN_INFRASTRUCTURE"
+- \<RELATED-CONCEPT-X\> is the capitalized label of one of the TELLme related concepts to the preceding keyword. E.g. "AGRICOLTURAL_TYPE"
 
 
 ## Docker image and docker-compose
