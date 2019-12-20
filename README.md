@@ -57,6 +57,20 @@ The two files (\*lookupTable.tsv) contain this information.
 - Compose post-import statements invoking, via curl program, geoserver API in order to associate each layer with the appropriate style for TELLme cartography.
 - The scripts must be copied to the data folder-structure root and executed within it.
 
+# Usage
+Once the scripts have been copied into the data-folder structure, in the ROOT folder
+	> cd ROOT-FOLDER
+	> # clean file names: run 
+	> ./clean_file_names.sh
+	> # obtain the report of all shape files with the contained geometry (output is printed in terminal): run
+	> ./inspect_shape_geometry.sh
+	> # obtain import statements to ingest files in TELLme-HUB: run 
+	> tree -if --noreport | grep shp | awk -v FQDN="tellmehub.get-it.it" -v user="<geoserveruser>" -v pass="<geoserverpassword>" -v container_absolute_path_prefix="/usr/src/app/tellme_datacall/" -f importLookupArray.awk
+The parameter to the awk script have the following meaning, and should be adapted to environment.
+- 'FQDN' must contain the web domain of the installation of TELLme-HUB instance where data are going to published
+- 'user' and 'pass' represent the actual administrative account of the geoserver associated to the TELLme-HUB instance
+- 'container_absolute_path_prefix' is the path, within the "django" container of TELLme-HUB instance, where the files will be uploaded (note: the suggested use is to maintain the value "/usr/src/app/tellme\_datacall", and to use the tellme\_datacall in the TELLme-HUB folder on the host where TELLme-HUB is deployed).
+	
 ## Docker image and docker-compose
 The docker image contains an environment to successfully run the scripts. It contains gdal-ogr and the tree utility that are prerequisite.
 The /usr/src/app folder contains all the scripts. The folder structure with data must be mounted at this same mount point:
