@@ -20,6 +20,7 @@
 #
 #
 BEGIN{
+  ROOTDIRLEVEL=1; # depth of ROOTDIR with respect to current directory, where the script is invoked
   getit_FQDN=FQDN; #ex."tellmehub.get-it.it"
   geoserver_username=user;
   geoserver_password=pass;
@@ -59,11 +60,11 @@ BEGIN{
   container_absolute_path_and_filename=sprintf("%s%s",container_absolute_path_prefix,relative_path_and_filename)
   sub(/\.\//,"",container_absolute_path_and_filename);
 
-  city=$2;
+  city=$(ROOTDIRLEVEL+2);
   user=city; #NOTE: currently each city team has a user whose id is the city name capitalized (written exactly as the first column of "metropolisLookupTable.tsv" file)
-  protocol=$3;
-  keyword=$4;
-  relatedConcept=$5;
+  protocol=$(ROOTDIRLEVEL+3);
+  keyword=$(ROOTDIRLEVEL+4);
+  relatedConcept=$(ROOTDIRLEVEL+5);
   
   protocolid=1; #TODO: change this for upcoming protocols in the future. Use a lookup table like the ones for cities and concepts
   
@@ -87,7 +88,7 @@ BEGIN{
 
   row=sprintf("city: %s\tprotocol: %s\tconcept: %s\tslug: %s", city, protocol, relatedConcept, conceptslug);
   print row > "importOutputLog.txt";
-  split($6,filename,".");
+  split($(ROOTDIRLEVEL+6),filename,".");
   layertitle=filename[1];
   gsub(/\\ /,"_",layertitle);
   if(index(layertitle,cityprefix)==0){
