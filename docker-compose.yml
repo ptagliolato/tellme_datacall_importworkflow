@@ -2,7 +2,7 @@ version: '2'
 
 services:
   gdal2:
-    image: ptagliolato/tellme_datacall_preprocessing:1.0.0
+    image: ptagliolato/tellme_datacall_importworkflow:1.0
     container_name: gdal2
     volumes:
       - "${ROOT_DATA_FOLDER}:/usr/src/app/"
