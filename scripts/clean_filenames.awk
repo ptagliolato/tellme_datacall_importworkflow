@@ -26,8 +26,9 @@ BEGIN{
 {
     correct_spaces=$0
     path_with_spaces=$0
-    gsub(/\\ /,"_",correct_spaces)
-    #gsub(/ /,"\\ ",path_with_spaces)
+    gsub(/\\ /,"_",correct_spaces) # files with "\ " sequence
+    gsub(/ /,"_",correct_spaces) # files with " " sequence
+    
     output=sprintf("mv \"%s\" %s",path_with_spaces,correct_spaces)
 
     print output
