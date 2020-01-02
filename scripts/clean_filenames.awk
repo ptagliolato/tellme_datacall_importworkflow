@@ -26,8 +26,8 @@ BEGIN{
 {
     correct_spaces=$0
     path_with_spaces=$0
-    gsub(/ /,"_",correct_spaces)
-    gsub(/ /,"\\ ",path_with_spaces)
+    gsub(/\\ /,"_",correct_spaces)
+    #gsub(/ /,"\\ ",path_with_spaces)
     output=sprintf("mv %s %s",path_with_spaces,correct_spaces)
 
     print output
