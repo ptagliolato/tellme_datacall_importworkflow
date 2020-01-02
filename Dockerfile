@@ -6,6 +6,7 @@ MAINTAINER ptagliolato
 RUN apt-get update \
      && apt-get install -y tree
 COPY ./scripts /usr/src/app/
+RUN chmod +x /usr/src/app *.sh
 WORKDIR /usr/src/app
 
 CMD ["/bin/bash"]
