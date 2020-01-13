@@ -3,7 +3,7 @@
 # use within the folder containing city folders, relatedConceptLookupTable.tsv, metropolisLookupTable.tsv.
 # The script is designed to be called this way:
 #
-# tree -if --noreport | grep shp | awk -v FQDN="tellmehub.get-it.it" -v user="geoserveruser" -v pass="geoserverpassword" -v container_absolute_path_prefix="/usr/src/app/tellme_datacall/" -f importLookupArray.awk
+# tree -if --noreport | grep shp$ | awk -v FQDN="tellmehub.get-it.it" -v user="geoserveruser" -v pass="geoserverpassword" -v container_absolute_path_prefix="/usr/src/app/" -f importLookupArray.awk
 #
 # the script outputs the command lines to invoke geonode importlayers script 
 # 
