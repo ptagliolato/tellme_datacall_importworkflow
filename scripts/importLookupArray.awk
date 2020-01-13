@@ -25,6 +25,8 @@ BEGIN{
   geoserver_username=user;
   geoserver_password=pass;
   pathprefix=container_absolute_path_prefix;
+  out_postproduction="tellme_datacall/output_postproduction_curl_statement.txt"
+  out_log="tellme_datacall/output_importStatementsLog.txt"
 
   while(getline < "relatedConceptLookupTable.tsv"){
     split($0,ft,"\t")
@@ -87,7 +89,7 @@ BEGIN{
 
 
   row=sprintf("city: %s\tprotocol: %s\tconcept: %s\tslug: %s", city, protocol, relatedConcept, conceptslug);
-  print row > "importOutputLog.txt";
+  print row > "output_importLog.txt";
   split($(ROOTDIRLEVEL+6),filename,".");
   layertitle=filename[1];
   gsub(/\\ /,"_",layertitle);
@@ -100,19 +102,19 @@ BEGIN{
   print output;
 
   postproduction=sprintf("# add here commands to associate styles to the layer. Layer: %s\tConcept_id:%s\tProtocol (i.e. protocol and scale, to be looked up): %s", layertitle, conceptslug, protocol);
-  print postproduction > "output_importLog.txt";
+  print postproduction > out_log;#"output_importLog.txt";
 
   stylename=sprintf("c_%s-p_%s-s_%s",conceptid,protocolid,scale);
   geoserver_layername=sprintf("geonode:%s",layertitle);
   geoserverAPI_CURL_command=sprintf("curl -v -u %s:%s -X PUT -H \"Content-type: text/xml\" -d \"<layer><defaultStyle><name>%s</name> </defaultStyle><enabled>true</enabled></layer>\" http://%s/geoserver/rest/layers/%s", geoserver_username, geoserver_password, stylename, getit_FQDN, geoserver_layername);
 
-  print geoserverAPI_CURL_command > "output_postproduction_curl_statement.txt";
+  print geoserverAPI_CURL_command > out_postproduction;#"output_postproduction_curl_statement.txt";
 
 }
 
 END{
   
-  close("output_postproduction_curl_statement.txt")
-  close("output_importLog.txt")
+  close(out_postproduction)
+  close(out_log)
 }
 
