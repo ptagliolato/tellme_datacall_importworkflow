@@ -25,8 +25,11 @@ BEGIN{
   geoserver_username=user;
   geoserver_password=pass;
   pathprefix=container_absolute_path_prefix;
-  out_postproduction="tellme_datacall/output_postproduction_curl_statement.txt"
-  out_log="tellme_datacall/output_importStatementsLog.txt"
+#  out_postproduction="tellme_datacall/output_postproduction_curl_statement.txt"
+#  out_log="tellme_datacall/output_importStatementsLog.txt"
+
+  out_postproduction=sprintf("%stellme_datacall/output_postproduction_curl_statement",container_absolute_path_prefix);
+  out_log=sprintf("%stellme_datacall/output_importStatementsLog.txt",container_absolute_path_prefix);
 
   while(getline < "relatedConceptLookupTable.tsv"){
     split($0,ft,"\t")
