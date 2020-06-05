@@ -90,4 +90,4 @@ this can be achieved using the docker-compose, by specifying the path in the doc
     
 ## Meta
 
-* License: The software is being developed by Paolo Tagliolato ([IREA-CNR](http://www.irea.cnr.it)), and it is released under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html) (GPL‑3).
+* License: The software is being developed by Paolo Tagliolato and Alessandro Oggioni ([IREA-CNR](http://www.irea.cnr.it)), and it is released under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html) (GPL‑3).
