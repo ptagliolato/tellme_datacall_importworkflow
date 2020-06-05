@@ -90,19 +90,4 @@ this can be achieved using the docker-compose, by specifying the path in the doc
     
 ## Meta
 
-* Please [provide a new manufacturer information by issues](https://github.com/ptagliolato/tellme_datacall_importworkflow/issues), or email tagliolato.p(at)irea.cnr.it
-* License: The collection is being developed by Paolo Tagliolato ([IREA-CNR](http://www.irea.cnr.it)), and it is released under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html) (GPL‑3).
-<!---* Get citation information for RDF-FOAF Manufacturers list
-
-``` bibtex
-@misc{alessandro_oggioni_2019_3247546,
-  author       = {Alessandro Oggioni},
-  title        = {{oggioniale/RDF-FOAF-Manufacturer-list: First 
-                   release of RDF-FOAF Manufacturers list}},
-  month        = jun,
-  year         = 2019,
-  doi          = {10.5281/zenodo.3247546},
-  url          = {https://doi.org/10.5281/zenodo.3247546}
-}
-```
---->
+* License: The software is being developed by Paolo Tagliolato ([IREA-CNR](http://www.irea.cnr.it)), and it is released under the [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html) (GPL‑3).
